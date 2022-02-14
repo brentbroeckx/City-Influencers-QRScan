@@ -9,7 +9,7 @@ class RewardApi {
     try {
 
       Map<String, String> headers = {
-        "Content-Type": "Application/json",
+        "Content-Type": "application/json",
         "Authorization": "Bearer $token"
       };
 
@@ -26,7 +26,8 @@ class RewardApi {
         );
 
         if (res.statusCode == 200) {
-          return "Reward succesfully used";
+
+          return res.body;
         }
 
 
