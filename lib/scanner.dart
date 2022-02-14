@@ -60,6 +60,7 @@ class _ScannerState extends State<Scanner> {
                   children: <Widget>[
                     Text('Type: ${describeEnum(scanData.format).toUpperCase()}'),
                     Text('Data: ${scanData.code}'),
+                    Text('Token: $token id: $id'),
                     Text('Message: $value ')
                   ],
                 ),
