@@ -1,3 +1,4 @@
+import 'package:city_influencers_qr/apis/reward_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -39,7 +40,17 @@ class _ScannerState extends State<Scanner> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) async {
       controller.pauseCamera();
-      showDialog(
+
+      var data = scanData.code;
+
+      var dataSplit = data.split(',');
+      var token = dataSplit[0];
+      var id = dataSplit[1];
+
+
+      RewardApi().unclaimReward(token, id).then((value) => {
+        
+        showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
@@ -49,6 +60,7 @@ class _ScannerState extends State<Scanner> {
                   children: <Widget>[
                     Text('Type: ${describeEnum(scanData.format).toUpperCase()}'),
                     Text('Data: ${scanData.code}'),
+                    Text('Message: $value ')
                   ],
                 ),
               ),
@@ -62,7 +74,10 @@ class _ScannerState extends State<Scanner> {
               ],
             );
           },
-        ).then((value) => controller.resumeCamera());
+        ).then((value) => controller.resumeCamera())
+
+      });
+      
     });
   }
 }
