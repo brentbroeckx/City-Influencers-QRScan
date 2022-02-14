@@ -9,6 +9,7 @@ class RewardApi {
     try {
 
       Map<String, String> headers = {
+        "Content-Type": "Application/json",
         "Authorization": "Bearer $token"
       };
 
