@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -37,13 +38,31 @@ class _ScannerState extends State<Scanner> {
    void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) async {
-       controller.pauseCamera();
-       print("testing");
-       print(scanData.code);
-      if (await canLaunch(scanData.code)) {
-          await launch(scanData.code);
-      }
-      controller.resumeCamera();
+      controller.pauseCamera();
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Processing QR Code'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text('Type: ${describeEnum(scanData.format).toUpperCase()}'),
+                    Text('Data: ${scanData.code}'),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        ).then((value) => controller.resumeCamera());
     });
   }
 }
