@@ -57,11 +57,8 @@ class _ScannerState extends State<Scanner> {
               title: const Text('Processing QR Code'),
               content: SingleChildScrollView(
                 child: ListBody(
-                  children: <Widget>[
-                    Text('Type: ${describeEnum(scanData.format).toUpperCase()}'),
-                    Text('Data: ${scanData.code}'),
-                    Text('Token: $token id: $id'),
-                    Text('Message: $value ')
+                  children: const <Widget>[
+                    Text('Voucher succesfully used'),
                   ],
                 ),
               ),
