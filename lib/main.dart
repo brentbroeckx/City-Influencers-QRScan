@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(title: 'CI QR Scanner'),
+      home: MyHomePage(title: 'City Influencers QR Scanner'),
     );
   }
 }
@@ -53,19 +53,28 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: ElevatedButton(
-            child: Text('Scan'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Scanner()),
-              );
-            }),
-      ),
-    );
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+          const Padding(
+            padding: const EdgeInsets.only(bottom: 30),
+            child: Center(
+              child: Text("Voucher QR code", style: TextStyle(fontSize: 36))
+            ),
+          ),
+          Center(
+            child: ElevatedButton(
+                child: const Text('Start scanning'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Scanner()),
+                  );
+                }),
+          ),
+        ]));
   }
 }
